@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swaroopa Pradhan — Style Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0e0e0e;
+      --ink-soft:  #444;
+      --ink-muted: #888;
+      --paper:     #fafaf8;
+      --paper-alt: #f2f0eb;
+      --accent:    #2d5be3;
+      --border:    #e0ddd8;
+      --serif:     'Lora', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(14,14,14,0.96); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 1rem; font-weight: 600; color: #fff;
+      letter-spacing: 0.2px;
+    }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.8px;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      padding: 6px 12px; border-radius: 4px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #fff;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 4px;
+      padding: 6px 16px; transition: all 0.2s;
+    }
+    .nav-cta:hover { background: #fff; color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: center;
+      padding: 120px 48px 80px;
+      gap: 64px;
+      position: relative;
+    }
+    .hero-left {}
+    .hero-tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block; width: 24px; height: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.12;
+      letter-spacing: -0.5px;
+      margin-bottom: 36px;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+    }
+    .hero-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.5);
+      max-width: 480px; line-height: 1.7; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; gap: 14px; align-items: center; }
+    .btn-primary {
+      background: #fff; color: var(--ink);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.6px;
+      text-transform: uppercase; padding: 13px 28px; border-radius: 4px;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-ghost {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.6px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: #fff; }
+    .btn-ghost::after { content: '→'; }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 72px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 40px;
+    }
+    .stat-val {
+      font-family: var(--serif);
+      font-size: 2rem; font-weight: 700; color: #fff;
+      display: block; line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.5px; margin-top: 6px; display: block;
+    }
+
+    /* Photo */
+    .hero-right { position: relative; }
+    .hero-photo-wrap {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .hero-photo-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top;
+      filter: grayscale(20%);
+    }
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(14,14,14,0.5));
+    }
+    .hero-photo-caption {
+      position: absolute; bottom: 20px; left: 20px; z-index: 2;
+      font-size: 0.72rem; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 104px 48px; }
+    .section-alt { background: var(--paper-alt); }
+
+    .section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.3px; margin-bottom: 20px;
+    }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--ink-soft); }
+    .section-desc {
+      color: var(--ink-muted); max-width: 520px;
+      font-size: 1rem; line-height: 1.7; margin-bottom: 60px;
+    }
+
+    /* ── WHAT I BRING ── */
+    .bring-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .bring-card {
+      background: var(--paper);
+      padding: 36px 32px;
+      transition: background 0.2s;
+    }
+    .bring-card:hover { background: #fff; }
+    .bring-num {
+      font-family: var(--serif);
+      font-size: 2rem; font-weight: 700;
+      color: var(--border); line-height: 1;
+      margin-bottom: 20px;
+    }
+    .bring-title {
+      font-family: var(--serif);
+      font-size: 1.05rem; font-weight: 600;
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .bring-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; }
+
+    /* ── ABOUT / PHOTO SPLIT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-photo {
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      position: sticky;
+      top: 96px;
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .about-content {}
+    .about-quote {
+      font-family: var(--serif);
+      font-size: 1.35rem; font-style: italic; font-weight: 400;
+      color: var(--ink-soft); line-height: 1.6;
+      border-left: 2px solid var(--ink);
+      padding-left: 28px;
+      margin-bottom: 40px;
+    }
+    .about-text { font-size: 0.96rem; color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px; }
+    .about-tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.6px;
+      text-transform: uppercase; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 3px;
+      padding: 5px 12px;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 48px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: padding 0.3s;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-year {
+      font-size: 0.78rem; color: var(--ink-muted);
+      letter-spacing: 0.5px; padding-top: 4px;
+    }
+    .exp-company {
+      font-family: var(--serif);
+      font-size: 1.3rem; font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .exp-role { font-size: 0.88rem; color: var(--ink-muted); margin-bottom: 16px; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .exp-tag {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: var(--paper-alt); color: var(--ink-soft);
+      padding: 3px 10px; border-radius: 3px;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-groups { display: flex; flex-direction: column; gap: 56px; }
+    .cert-group-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-muted);
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-list { display: flex; flex-direction: column; gap: 16px; }
+    .cert-item {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 24px;
+      padding: 18px 24px;
+      border: 1px solid var(--border); border-radius: 6px;
+      background: var(--paper);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .cert-item:hover { border-color: var(--ink); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .cert-item-name {
+      font-family: var(--serif); font-size: 1rem; font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .cert-item-org { font-size: 0.82rem; color: var(--ink-muted); }
+    .cert-item-year {
+      font-size: 0.72rem; color: var(--ink-muted);
+      white-space: nowrap; padding-top: 4px; flex-shrink: 0;
+    }
+    .cert-item--pending { opacity: 0.55; border-style: dashed; }
+
+    /* ── CONTACT ── */
+    .contact-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-big {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.3px;
+    }
+    .contact-big em { font-style: italic; font-weight: 400; color: var(--ink-soft); }
+    .contact-links { display: flex; flex-direction: column; gap: 16px; margin-top: 48px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 0.92rem; color: var(--ink-soft);
+      border-bottom: 1px solid var(--border); padding-bottom: 16px;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--ink); }
+    .contact-link-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 3px; display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.4);
+      padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem;
+    }
+    footer span { color: rgba(255,255,255,0.6); }
+
+    /* ── DEMO BANNER ── */
+    .demo-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--accent); color: #fff;
+      text-align: center; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.5px; padding: 10px;
+      z-index: 999;
+    }
+    .demo-banner strong { text-transform: uppercase; letter-spacing: 1px; margin-right: 12px; }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">
+    <strong>Style Demo</strong> This is a preview showing how your portfolio could look in an editorial serif style — not your live site.
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Swaroopa Pradhan</span>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="mailto:2swaroopa@gmail.com" class="nav-cta">Get in touch →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-tag">Information Security · GRC · Program Management</p>
+      <h1 class="hero-headline">
+        Security that gets<br>
+        <em>delivered.</em> Programs<br>
+        that actually run.
+      </h1>
+      <p class="hero-sub">
+        20+ years leading security and governance programs across 4 continents, 5 countries, and seven industries. I don't just write the policy — I build what makes it real.
+      </p>
+      <div class="hero-actions">
+        <a href="#experience" class="btn-primary">View my work</a>
+        <a href="Swaroopa_Resume2026.pdf" class="btn-ghost">Download résumé</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-val">20+</span>
+          <span class="stat-label">Years of experience</span>
+        </div>
+        <div>
+          <span class="stat-val">4</span>
+          <span class="stat-label">Continents &amp; 5 countries</span>
+        </div>
+        <div>
+          <span class="stat-val">7+</span>
+          <span class="stat-label">Industries served</span>
+        </div>
+        <div>
+          <span class="stat-val">8</span>
+          <span class="stat-label">Certifications held</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-wrap">
+        <img src="IMG_2279.jpg" alt="Swaroopa Pradhan" />
+        <span class="hero-photo-caption">Washington DC, USA · 2024</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I BRING -->
+  <section class="section" id="about">
+    <p class="section-label">What I bring</p>
+    <h2 class="section-title">More than a title.<br><em>A rare combination.</em></h2>
+    <p class="section-desc">Most security leaders manage the program. Most program managers defer on security. I do both — and that changes what's possible.</p>
+    <div class="bring-grid">
+      <div class="bring-card">
+        <div class="bring-num">01</div>
+        <h3 class="bring-title">Security that gets delivered</h3>
+        <p class="bring-desc">AI Governance, Data Retention, Copilot rollout — authored and delivered end-to-end. I manage the programs that implement the policies.</p>
+      </div>
+      <div class="bring-card">
+        <div class="bring-num">02</div>
+        <h3 class="bring-title">Global fluency, real adaptability</h3>
+        <p class="bring-desc">Lived and worked across India, Australia, Scotland, and the USA. Operated inside different business cultures, built trust in each one.</p>
+      </div>
+      <div class="bring-card">
+        <div class="bring-num">03</div>
+        <h3 class="bring-title">Hybrid by design</h3>
+        <p class="bring-desc">Scrum Master and GRC Manager. Capacity Manager and Tools Lead. The dual-role model isn't a compromise — it's how I add the most value.</p>
+      </div>
+      <div class="bring-card">
+        <div class="bring-num">04</div>
+        <h3 class="bring-title">Industry breadth</h3>
+        <p class="bring-desc">Energy, telecom, insurance, FMCG, media, public health. I understand what's at stake — not just technically, but commercially.</p>
+      </div>
+      <div class="bring-card">
+        <div class="bring-num">05</div>
+        <h3 class="bring-title">Process from the ground up</h3>
+        <p class="bring-desc">I author ITSM documentation, implement it in ServiceNow, then run it. No gap between what's written and what's working.</p>
+      </div>
+      <div class="bring-card">
+        <div class="bring-num">06</div>
+        <h3 class="bring-title">People-first leadership</h3>
+        <p class="bring-desc">Strong in conflict management and executive communication. I build alignment across legal, technical, and business stakeholders simultaneously.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT PHOTO SPLIT -->
+  <section class="section section-alt">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="39773DDB-6D2E-4821-9DF0-E570EA47BE58_1_201_a.jpeg" alt="Swaroopa Pradhan" />
+      </div>
+      <div class="about-content">
+        <p class="section-label">My story</p>
+        <blockquote class="about-quote">
+          "I carry every role forward. The process knowledge from ITSM informs how I design security programs. Nothing gets left behind — it compounds."
+        </blockquote>
+        <p class="about-text">
+          I'm a Cybersecurity and GRC leader with 20+ years of experience driving information security programs, data privacy initiatives, and regulatory compliance across public sector and global enterprises.
+        </p>
+        <p class="about-text">
+          My career has taken me from Chennai to Melbourne, Glasgow to Washington DC — not just geographically, but across the full spectrum of how organisations think about risk, governance, and delivery.
+        </p>
+        <p class="about-text">
+          At PCORI, I lead enterprise security and AI governance programs that directly protect public health research infrastructure. Before that, I spent over a decade at TCS managing Fortune 500 clients across four continents.
+        </p>
+        <div class="about-tags">
+          <span class="about-tag">GDPR</span>
+          <span class="about-tag">ISO 27001</span>
+          <span class="about-tag">NIST CSF</span>
+          <span class="about-tag">AI Governance</span>
+          <span class="about-tag">ServiceNow</span>
+          <span class="about-tag">ITIL</span>
+          <span class="about-tag">Scrum</span>
+          <span class="about-tag">PCI DSS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Two decades.<br><em>Four countries. Ten clients.</em></h2>
+    <p class="section-desc">Each role shaped how I think about security, service, and delivery.</p>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-year">Mar 2024 – Present<br>Washington DC, USA</div>
+        <div>
+          <p class="exp-company">PCORI</p>
+          <p class="exp-role">Information Security Manager & Program Manager</p>
+          <div class="exp-tags">
+            <span class="exp-tag">AI Governance</span>
+            <span class="exp-tag">GRC</span>
+            <span class="exp-tag">Data Privacy</span>
+            <span class="exp-tag">DPIA</span>
+            <span class="exp-tag">Vendor Risk</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Sept 2009 – Mar 2023<br>Glasgow · Hoboken NJ · Melbourne · Kolkata</div>
+        <div>
+          <p class="exp-company">Tata Consultancy Services</p>
+          <p class="exp-role">Business Operations, Transformation & ITSM Leadership</p>
+          <div class="exp-tags">
+            <span class="exp-tag">ITSM</span>
+            <span class="exp-tag">ServiceNow</span>
+            <span class="exp-tag">Agile / Scrum</span>
+            <span class="exp-tag">Digital Transformation</span>
+            <span class="exp-tag">ITIL</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Jan 2009 – Sept 2009<br>Chennai, India</div>
+        <div>
+          <p class="exp-company">Logica</p>
+          <p class="exp-role">IT Consultant – Problem Manager</p>
+          <div class="exp-tags">
+            <span class="exp-tag">ITIL</span>
+            <span class="exp-tag">Problem Management</span>
+            <span class="exp-tag">UK Clients</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Aug 2004 – Jan 2009<br>Kolkata, India</div>
+        <div>
+          <p class="exp-company">Wipro Technologies</p>
+          <p class="exp-role">Project Engineer</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Technical Support</span>
+            <span class="exp-tag">ITIL</span>
+            <span class="exp-tag">Service Delivery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section section-alt" id="certifications">
+    <p class="section-label">Certifications</p>
+    <h2 class="section-title">Credentials that<br><em>reflect the work.</em></h2>
+    <p class="section-desc">Formal certifications and completed courses across security, agile, AI, and project management.</p>
+    <div class="cert-groups">
+      <div>
+        <p class="cert-group-title">Formal Certifications</p>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">ITIL Intermediate</p>
+              <p class="cert-item-org">AXELOS</p>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">PRINCE2 Practitioner</p>
+              <p class="cert-item-org">AXELOS</p>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">Certified Scrum Product Owner</p>
+              <p class="cert-item-org">Scrum Alliance</p>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">Certified Scrum Master</p>
+              <p class="cert-item-org">Scrum Alliance</p>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">SAFe Agilist 5.0</p>
+              <p class="cert-item-org">Scaled Agile</p>
+            </div>
+          </div>
+          <div class="cert-item cert-item--pending">
+            <div>
+              <p class="cert-item-name">AI Governance Professional</p>
+              <p class="cert-item-org">In progress</p>
+            </div>
+            <span class="cert-item-year">2025 →</span>
+          </div>
+          <div class="cert-item cert-item--pending">
+            <div>
+              <p class="cert-item-name">Project Management Professional (PMP)</p>
+              <p class="cert-item-org">In progress</p>
+            </div>
+            <span class="cert-item-year">2025 →</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="cert-group-title">Courses & Licences</p>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">Artificial Intelligence for Cybersecurity</p>
+              <p class="cert-item-org">Project Management Institute</p>
+            </div>
+            <span class="cert-item-year">Jan 2024</span>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">Generative AI Overview for Project Managers</p>
+              <p class="cert-item-org">Project Management Institute</p>
+            </div>
+            <span class="cert-item-year">Jan 2024</span>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">Product Management: Building a Product Roadmap</p>
+              <p class="cert-item-org">Project Management Institute</p>
+            </div>
+            <span class="cert-item-year">Jan 2024</span>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-item-name">Bloomberg Market Concepts</p>
+              <p class="cert-item-org">Bloomberg</p>
+            </div>
+            <span class="cert-item-year">Nov 2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="contact-split">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="contact-big">
+          Let's talk about<br>
+          what <em>security</em><br>
+          can actually do.
+        </h2>
+      </div>
+      <div>
+        <p class="about-text" style="margin-bottom: 0;">Open to new opportunities, advisory roles, speaking engagements, and collaborations in cybersecurity, AI governance, and program management.</p>
+        <div class="contact-links">
+          <a href="mailto:2swaroopa@gmail.com" class="contact-link">
+            <div>
+              <span class="contact-link-label">Email</span>
+              2swaroopa@gmail.com
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/swaroopap/" class="contact-link" target="_blank">
+            <div>
+              <span class="contact-link-label">LinkedIn</span>
+              linkedin.com/in/swaroopap
+            </div>
+          </a>
+          <a href="Swaroopa_Resume2026.pdf" class="contact-link" target="_blank">
+            <div>
+              <span class="contact-link-label">Résumé</span>
+              Download PDF
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Swaroopa Pradhan</span>
+    <span style="color:rgba(255,255,255,0.25)">Style demo only — not the live site</span>
+    <span>Washington DC, USA</span>
+  </footer>
+
+</body>
+</html>
